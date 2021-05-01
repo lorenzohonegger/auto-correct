@@ -1,8 +1,6 @@
-
-
-#process data function
 def process_data(file_name):
     """
+    Process input data.
     Input: 
         A file_name which is found in your current directory. You just have to read it in. 
     Output: 
@@ -22,9 +20,9 @@ def process_data(file_name):
     return words
 
 
-#get word counts & probabilities
 def get_count(word_l):
     '''
+    Get word counts & probabilities.
     Input:
         word_l: a set of words representing the corpus. 
     Output:
@@ -43,6 +41,7 @@ def get_count(word_l):
 
 def get_probs(word_count_dict):
     '''
+    Get probabilities
     Input:
         word_count_dict: The wordcount dictionary where key is the word and value is its frequency.
     Output:
@@ -57,9 +56,9 @@ def get_probs(word_count_dict):
     return probs
 
 
-#modify letters of word
 def delete_letter(word, verbose=False):
     '''
+    Delete letter from word.
     Input:
         word: the string/word for which you will generate all possible words 
                 in the vocabulary which have 1 missing character
@@ -77,6 +76,7 @@ def delete_letter(word, verbose=False):
 
 def switch_letter(word, verbose=False):
     '''
+    Switch letter within word.
     Input:
         word: input string
      Output:
@@ -95,6 +95,7 @@ def switch_letter(word, verbose=False):
 
 def replace_letter(word, verbose=False):
     '''
+    Replace letter within word.
     Input:
         word: the input string/word 
     Output:
@@ -120,6 +121,7 @@ def replace_letter(word, verbose=False):
 
 def insert_letter(word, verbose=False):
     '''
+    Insert letter.
     Input:
         word: the input string/word 
     Output:
@@ -138,9 +140,9 @@ def insert_letter(word, verbose=False):
     return insert_l
 
 
-#edit one or two letters of word
 def edit_one_letter(word, allow_switches = True):
     """
+    Function to edit one letter of a word.
     Input:
         word: the string/word for which we will generate all possible wordsthat are one edit away.
     Output:
@@ -165,6 +167,7 @@ def edit_one_letter(word, allow_switches = True):
 
 def edit_two_letters(word, allow_switches = True):
     '''
+    Function to edit two letters of a word.
     Input:
         word: the input string/word 
     Output:
@@ -173,7 +176,6 @@ def edit_two_letters(word, allow_switches = True):
     
     edit_two_set = set()
     
-    #
     tmp_edit_one_set = edit_one_letter(word)
     for mod_word in tmp_edit_one_set:
         edit_two_set = edit_two_set.union(edit_one_letter(mod_word))
@@ -184,6 +186,7 @@ def edit_two_letters(word, allow_switches = True):
 #get corrections for word
 def get_corrections(word, probs, vocab, word_count_dict, n=2, verbose = False):
     '''
+    Function to get corrections for misspelling.
     Input: 
         word: a user entered string to check for suggestions
         probs: a dictionary that maps each word to its probability in the corpus
@@ -198,7 +201,6 @@ def get_corrections(word, probs, vocab, word_count_dict, n=2, verbose = False):
     suggestions = []
     n_best = []
     
-    #
     if word in vocab:
         return word;
     elif edit_one_letter(word, allow_switches = True).intersection(vocab):
