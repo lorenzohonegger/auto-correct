@@ -28,6 +28,12 @@ def get_count(word_l):
     Output:
         word_count_dict: The wordcount dictionary where key is the word and value is its frequency.
     '''
+    if isinstance(word_l, set):
+        pass
+    elif isinstance(word_l, list):
+        word_l = set(word_l)
+    else:
+        raise TypeError('Wrong type')
     
     #dict with word counts
     word_count_dict = {};
@@ -47,6 +53,9 @@ def get_probs(word_count_dict):
     Output:
         probs: A dictionary where keys are the words and the values are the probability that a word will occur. 
     '''
+    if not isinstance(word_count_dict, dict):
+        raise TypeError('Word count dictionary must be a dictionary')
+        
     probs = {}  
     
     #get word probabilities for each word
@@ -65,6 +74,8 @@ def delete_letter(word, verbose=False):
     Output:
         delete_l: a list of all possible strings obtained by deleting 1 character from word
     '''
+    if not isinstance(word, str):
+        raise TypeError('Word must be a string')
     
     #get all possible deletes from splits & store in lists
     split_l = [(word[:i], word[i:]) for i in range(len(word)+1) if len(word[i:]) > 0]
@@ -82,7 +93,8 @@ def switch_letter(word, verbose=False):
      Output:
         switches: a list of all possible strings with one adjacent charater switched
     ''' 
-
+    if not isinstance(word, str):
+        raise TypeError('Word must be a string')
     
     #get all possible splits then construct list of switches
     split_l = [(word[:i], word[i:]) for i in range(len(word)+1) if len(word[i:]) > 0];
@@ -92,7 +104,6 @@ def switch_letter(word, verbose=False):
 
     return switch_l
 
-
 def replace_letter(word, verbose=False):
     '''
     Replace letter within word.
@@ -101,6 +112,9 @@ def replace_letter(word, verbose=False):
     Output:
         replaces: a list of all possible strings where we replaced one letter from the original word. 
     ''' 
+    if not isinstance(word, str):
+        raise TypeError('Word must be a string')
+        
     #all possible letters
     letters = 'abcdefghijklmnopqrstuvwxyz'
     
@@ -127,6 +141,9 @@ def insert_letter(word, verbose=False):
     Output:
         inserts: a set of all possible strings with one new letter inserted at every offset
     ''' 
+    if not isinstance(word, str):
+        raise TypeError('Word must be a string')
+        
     #get letters & list for inserts to return
     letters = 'abcdefghijklmnopqrstuvwxyz'
     insert_l = []
